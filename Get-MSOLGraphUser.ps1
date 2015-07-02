@@ -66,9 +66,7 @@ Function Get-MSOLGraphUser {
             }
             else{
             Write-verbose "value detected for objectID : $objectID"
-            $users = Invoke-RestMethod -Method GET -Uri "$serviceRootURL/users?api-version=1.5" -Headers @{Authorization=$authenticationResult.CreateAuthorizationHeader()} -ContentType "application/json" 
-            #Write-Debug 'ham'
-            $users = $users.Value | ? ObjectID -eq $objectID
+		$users = Invoke-RestMethod -Method GET -Uri "$serviceRootURL/users/$objectID/?api-version=1.5" -Headers @{Authorization=$authenticationResult.CreateAuthorizationHeader()} -ContentType "application/json";
             }
 
         $users | Select UserPrincipalName,DisplayName,objectID}
